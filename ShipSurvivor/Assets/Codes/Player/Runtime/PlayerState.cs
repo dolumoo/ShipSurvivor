@@ -22,7 +22,7 @@ namespace Game.Player
         public bool isDead;
         public float currentNoiseLevel;
 
-        public PlayerState(PlayerData data)
+        public void Initialize(PlayerData data)
         {
             currentHealth = data.maxHealth;
             currentStamina = data.maxStamina;

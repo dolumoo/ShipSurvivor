@@ -11,14 +11,24 @@ namespace Game.Player
             context.playerState.currentMovementState = MovementState.Running;
         }
 
-        public void ExitState(PlayerMovement context)
-        {
-
-        }
+        public void ExitState(PlayerMovement context) { }
 
         public void UpdateState(PlayerMovement context)
         {
-            //Shift ¶¼Áü -> Idle ÀüÈ¯
+            var input = context.GetInput();
+            context.Move(context.playerData.runSpeed);
+
+            if (input.CrouchHeld)
+                context.SwitchState(context.GetCrouchingState());
+            else if (!input.RunHeld)
+                context.SwitchState(context.GetWalkingState());
+            else if (input.MoveInput.magnitude <= 0f)
+                context.SwitchState(context.GetIdleState());
+
+            if (input.JumpPressed && context.IsGrounded())
+            {
+                context.Jump();
+            }
         }
     }
 }

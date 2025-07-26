@@ -11,19 +11,23 @@ namespace Game.Player
             context.playerState.currentMovementState = MovementState.Idle;
         }
 
-        public void ExitState(PlayerMovement context)
-        {
-
-        }
+        public void ExitState(PlayerMovement context) { }
 
         public void UpdateState(PlayerMovement context)
         {
-            // WASD -> walking 전환
+            var input = context.GetInput();
 
-            // Shift -> running 전환
+            if (input.CrouchHeld)
+                context.SwitchState(context.GetCrouchingState());
+            else if (input.RunHeld && input.MoveInput.magnitude > 0f)
+                context.SwitchState(context.GetRunningState());
+            else if (input.MoveInput.magnitude > 0f)
+                context.SwitchState(context.GetWalkingState());
 
-            // Ctrl -> crouching 전환
-
+            if (input.JumpPressed && context.IsGrounded())
+            {
+                context.Jump();
+            }
         }
     }
 }
