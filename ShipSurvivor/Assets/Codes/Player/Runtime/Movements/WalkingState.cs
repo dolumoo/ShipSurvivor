@@ -18,7 +18,7 @@ namespace Game.Player
 
         public void UpdateState(PlayerMovement context)
         {
-            var input = context.GetInput();
+            context.Move(context.playerData.walkSpeed);
 
             if (context.inputHandler.CrouchHeld)
             {
@@ -38,9 +38,7 @@ namespace Game.Player
                 return;
             }
 
-            context.Move(context.playerData.walkSpeed);
-
-            if (input.JumpPressed && context.IsGrounded())
+            if (context.inputHandler.JumpPressed)
             {
                 context.Jump();
             }

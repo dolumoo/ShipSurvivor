@@ -16,18 +16,19 @@ namespace Game.Player
 
         public void UpdateState(PlayerMovement context)
         {
-            var input = context.GetInput();
             context.Move(context.playerData.crouchSpeed);
 
-            if (!input.CrouchHeld)
+            if (!context.inputHandler.CrouchHeld)
             {
-                if (input.MoveInput.magnitude > 0f)
+                if (context.inputHandler.MoveInput.magnitude > 0f)
                 {
-                    context.SwitchState(context.GetWalkingState());
+                    context.SwitchState(context.walkingState);
+                    return;
                 }
                 else
                 {
-                    context.SwitchState(context.GetIdleState());
+                    context.SwitchState(context.idleState);
+                    return;
                 }
             }
         }

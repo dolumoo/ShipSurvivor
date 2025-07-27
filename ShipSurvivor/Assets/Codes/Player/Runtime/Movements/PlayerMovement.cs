@@ -54,16 +54,6 @@ namespace Game.Player
             currentState.EnterState(this);
         }
 
-        public float GetJumpForce()
-        {
-            return playerState.currentMovementState switch
-            {
-                MovementState.Running => playerData.jumpForce * 1.3f,
-                MovementState.Walking => playerData.jumpForce,
-                _ => 0f // 웅크린 상태 등은 점프력 없음
-            };
-        }
-
         public void Move(float moveSpeed)
         {
             Vector3 move = transform.right * inputHandler.MoveInput.x + transform.forward * inputHandler.MoveInput.y;
@@ -74,7 +64,7 @@ namespace Game.Player
         {
             if (controller.isGrounded)
             {
-                velocity.y = Mathf.Sqrt(GetJumpForce() * -2f * gravity);
+                velocity.y = Mathf.Sqrt(playerData.jumpForce * -2f * gravity);
             }
         }
 
@@ -88,14 +78,5 @@ namespace Game.Player
             velocity.y += gravity * Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
         }
-
-        public PlayerInputHandler GetInput() => inputHandler;
-
-        public IPlayerMovementState GetIdleState() => idleState;
-        public IPlayerMovementState GetWalkingState() => walkingState;
-        public IPlayerMovementState GetRunningState() => runningState;
-        public IPlayerMovementState GetCrouchingState() => crouchingState;
-
-        public bool IsGrounded() => controller.isGrounded;
     }
 }

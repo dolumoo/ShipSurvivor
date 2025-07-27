@@ -15,16 +15,28 @@ namespace Game.Player
 
         public void UpdateState(PlayerMovement context)
         {
-            var input = context.GetInput();
 
-            if (input.CrouchHeld)
-                context.SwitchState(context.GetCrouchingState());
-            else if (input.RunHeld && input.MoveInput.magnitude > 0f)
-                context.SwitchState(context.GetRunningState());
-            else if (input.MoveInput.magnitude > 0f)
-                context.SwitchState(context.GetWalkingState());
+            if (context.inputHandler.CrouchHeld)
+            {
+                context.SwitchState(context.crouchingState);
+                return;
+            }
 
-            if (input.JumpPressed && context.IsGrounded())
+            if (context.inputHandler.MoveInput.magnitude > 0f)
+            {
+                if (context.inputHandler.RunHeld)
+                {
+                    context.SwitchState(context.runningState);
+                    return;
+                }
+                else
+                {
+                    context.SwitchState(context.walkingState);
+                    return;
+                }
+            }
+
+            if(context.inputHandler.JumpPressed && context.controller.isGrounded)
             {
                 context.Jump();
             }
