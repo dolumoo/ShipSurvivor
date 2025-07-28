@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using UnityEngine;
 
 
@@ -18,12 +19,15 @@ namespace Game.Player
         [Header("Setting")]
         public float gravity = -9.81f;
 
+        [Header("State")]
+        public bool isGrounded = true;
 
         public IPlayerMovementState currentState;
         public IdleState idleState;
         public WalkingState walkingState;
         public RunningState runningState;
         public CrouchingState crouchingState;
+        public JumpingState jumpingState;
 
         private void Awake()
         {
@@ -37,13 +41,16 @@ namespace Game.Player
             walkingState = new WalkingState();
             runningState = new RunningState();
             crouchingState = new CrouchingState();
+            jumpingState = new JumpingState();
 
+            isGrounded = controller.isGrounded;
             currentState = idleState;
         }
 
         private void Update()
         {
             currentState.UpdateState(this);
+            isGrounded = controller.isGrounded;
             ApplyGravity();
         }
 

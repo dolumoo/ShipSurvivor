@@ -38,7 +38,7 @@ namespace Game.Player
 
             if(context.inputHandler.JumpPressed && context.controller.isGrounded)
             {
-                context.Jump();
+                context.SwitchState(context.jumpingState);
             }
         }
     }
