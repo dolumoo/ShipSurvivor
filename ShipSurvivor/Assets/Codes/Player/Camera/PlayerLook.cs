@@ -11,11 +11,11 @@ namespace Game.Player
         public Transform cameraHolder;
 
         [Header("Sensitivity")]
-        public float mouseSensitivity = 100f;
+        public float mouseSensitivity = 70f;
 
         private float xRotation = 0f;
         private PlayerInputActions inputActions;
-        private Vector2 mouseDelta;
+        public Vector2 mouseDelta;
 
         private void Awake()
         {
@@ -25,7 +25,6 @@ namespace Game.Player
         private void OnEnable()
         {
             inputActions.Enable();
-            inputActions.Player.Look.performed += ctx => mouseDelta = ctx.ReadValue<Vector2>();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
@@ -39,7 +38,9 @@ namespace Game.Player
 
         private void Update()
         {
-            // 마우스 입력 적용
+            Vector2 mouseDelta = inputActions.Player.Look.ReadValue<Vector2>();
+
+        // 마우스 입력 적용
             float mouseX = mouseDelta.x * mouseSensitivity * Time.deltaTime;
             float mouseY = mouseDelta.y * mouseSensitivity * Time.deltaTime;
 
