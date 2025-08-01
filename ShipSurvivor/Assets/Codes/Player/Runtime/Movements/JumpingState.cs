@@ -9,7 +9,6 @@ namespace Game.Player
         public void EnterState(PlayerMovement context)
         {
             context.playerState.currentMovementState = MovementState.Jumping;
-            Debug.Log("มกวม!");
             context.Jump();
         }
 

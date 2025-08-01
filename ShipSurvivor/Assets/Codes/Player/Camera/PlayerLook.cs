@@ -15,7 +15,7 @@ namespace Game.Player
 
         private float xRotation = 0f;
         private PlayerInputActions inputActions;
-        public Vector2 mouseDelta;
+        private Vector2 mouseDelta;
 
         private void Awake()
         {
@@ -38,9 +38,10 @@ namespace Game.Player
 
         private void Update()
         {
+            // 매 프레임 마우스 입력을 업데이트
             Vector2 mouseDelta = inputActions.Player.Look.ReadValue<Vector2>();
 
-        // 마우스 입력 적용
+            // 마우스 입력 적용
             float mouseX = mouseDelta.x * mouseSensitivity * Time.deltaTime;
             float mouseY = mouseDelta.y * mouseSensitivity * Time.deltaTime;
 
