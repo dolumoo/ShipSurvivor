@@ -12,6 +12,8 @@ namespace Game.Player
         public bool JumpPressed { get; private set; }
         public bool CrouchHeld { get; private set; }
         public bool RunHeld { get; private set; }
+        public bool InteractPressed { get; private set; }
+
 
         private void Awake()
         {
@@ -33,6 +35,9 @@ namespace Game.Player
 
             inputActions.Player.Run.started += ctx => RunHeld = true;
             inputActions.Player.Run.canceled += ctx => RunHeld = false;
+
+            inputActions.Player.Interact.started += ctx => InteractPressed = true;
+            inputActions.Player.Interact.canceled += ctx => InteractPressed = false;
         }
 
         void OnDisable()

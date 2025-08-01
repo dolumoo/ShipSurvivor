@@ -15,7 +15,7 @@ MonoBehaviour:
   walkSpeed: 3
   runSpeed: 6
   crouchSpeed: 1.5
-  jumpForce: 5
+  jumpForce: 1
   crouchHeight: 1
   normalHeight: 2
   maxStamina: 100
