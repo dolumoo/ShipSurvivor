@@ -1,16 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Player;
 
-namespace Game.Player
+namespace Game.UI
 {
     public class InventoryUI : MonoBehaviour
     {
+        [Header("References")]
         public Inventory inventory;
         public GameObject slotPrefab;
         public Transform slotParent;
 
         private List<InventorySlotUI> slotUIs = new();
+
+        private void OnEnable()
+        {
+            inventory.OnInventoryChanged.AddListener(UpdateUI);
+        }
+
+        private void OnDisable()
+        {
+            inventory.OnInventoryChanged.RemoveListener(UpdateUI);
+        }
 
         private void Start()
         {

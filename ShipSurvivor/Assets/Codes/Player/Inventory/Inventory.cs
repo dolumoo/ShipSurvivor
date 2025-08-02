@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Game.Item;
 
 namespace Game.Player
@@ -9,6 +10,7 @@ namespace Game.Player
     {
         public int slotCount = 6;
         public List<InventorySlot> slots = new();
+        public UnityEvent OnInventoryChanged;
 
         private void Awake()
         {
@@ -30,6 +32,7 @@ namespace Game.Player
                     if(slot.itemData == item && slot.quantity < item.maxStack)
                     {
                         slot.quantity++;
+                        OnInventoryChanged.Invoke();
                         Debug.Log("½ºÅÃ Ãß°¡µÊ");
                         return true;
                     }
@@ -43,6 +46,7 @@ namespace Game.Player
                 {
                     slot.itemData = item;
                     slot.quantity = 1;
+                    OnInventoryChanged.Invoke();
                     Debug.Log("»õ ½½·Ô »ç¿ë");
                     return true;
                 }

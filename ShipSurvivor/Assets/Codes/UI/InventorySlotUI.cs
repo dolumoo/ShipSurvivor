@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Game.Player;
 
-namespace Game.Player
+namespace Game.UI
 {
     public class InventorySlotUI : MonoBehaviour
     {
+        [Header("References")]
         public Image iconImage;
         public TextMeshProUGUI countText;
 
