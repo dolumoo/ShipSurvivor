@@ -31,17 +31,20 @@ namespace Game.Player
 
         private void Awake()
         {
-            playerState = GetComponent<PlayerState>();
-            playerState.Initialize(playerData);
-
-            controller = GetComponent<CharacterController>();
-            inputHandler = GetComponent<PlayerInputHandler>();
-
             idleState = new IdleState();
             walkingState = new WalkingState();
             runningState = new RunningState();
             crouchingState = new CrouchingState();
             jumpingState = new JumpingState();
+        }
+
+        private void Start()
+        {
+            playerState = GetComponent<PlayerState>();
+            playerState.Initialize(playerData);
+
+            controller = GetComponent<CharacterController>();
+            inputHandler = GetComponent<PlayerInputHandler>();
 
             isGrounded = controller.isGrounded;
             currentState = idleState;

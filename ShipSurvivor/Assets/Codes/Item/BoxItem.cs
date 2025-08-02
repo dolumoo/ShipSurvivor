@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Game.Item;
+using Game.Player;
 
-
-public class BoxItem : BaseInteractableItem
+namespace Game.Item
 {
-    public override void Interact()
+    public class BoxItem : BaseInteractableItem
     {
-        Debug.Log(this.gameObject.name + "interacted!");
+        public ItemData itemData;
+
+        public override void Interact(Inventory inventory)
+        {
+            inventory.AddItem(itemData);
+            Debug.Log(this.gameObject.name + "interacted!");
+        }
     }
 }

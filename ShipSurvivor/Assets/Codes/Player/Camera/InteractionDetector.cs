@@ -10,7 +10,7 @@ namespace Game.Interaction
 {
     public interface IInteractable
     {
-        void Interact();
+        void Interact(Inventory inventory);
         string GetInteractPrompt();
     }
     public class InteractionDetector : MonoBehaviour
@@ -23,6 +23,7 @@ namespace Game.Interaction
         public GameObject interactionUI;
         public TextMeshProUGUI interactionText;
 
+        private Inventory inventory;
         private PlayerInputHandler inputHandler;
         private Transform cameraTransform;
         private IInteractable currentTarget;
@@ -31,6 +32,7 @@ namespace Game.Interaction
         private void Start()
         {
             cameraTransform = Camera.main.transform;
+            inventory = GetComponentInParent<Inventory>();
             inputHandler = GetComponentInParent<PlayerInputHandler>();
             interactionUI.SetActive(false);
         }
@@ -64,7 +66,8 @@ namespace Game.Interaction
 
                 if (inputHandler.InteractPressed)
                 {
-                    currentTarget.Interact();
+                    currentTarget.Interact(inventory);
+                    inputHandler.ConsumeInteractInput();
                 }
             }
             else
@@ -85,7 +88,7 @@ namespace Game.Interaction
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("Tirgger in" + other.gameObject.name);
+            //Debug.Log("Tirgger in" + other.gameObject.name);
             if (other.TryGetComponent<IInteractable>(out var interactable))
             {
                 Debug.Log("Find interactive item!");
@@ -98,7 +101,7 @@ namespace Game.Interaction
 
         private void OnTriggerExit(Collider other)
         {
-            Debug.Log("Trigger out" + other.gameObject.name);
+            //Debug.Log("Trigger out" + other.gameObject.name);
             if (other.TryGetComponent<IInteractable>(out var interactable))
             {
                 if (nearbyInteractables.Contains(interactable))
