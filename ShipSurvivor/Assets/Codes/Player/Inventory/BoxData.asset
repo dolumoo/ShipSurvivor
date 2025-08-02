@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BoxData
   m_EditorClassIdentifier: 
   itemName: Box
-  icon: {fileID: 0}
+  icon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   type: 2
   prefab: {fileID: 0}
   isStackable: 1
