@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Game.Player
 {
@@ -13,6 +14,7 @@ namespace Game.Player
         public bool CrouchHeld { get; private set; }
         public bool RunHeld { get; private set; }
         public bool InteractPressed { get; private set; }
+        public UnityEvent OnInventoryToggle;
 
         private void Awake()
         {
@@ -36,6 +38,8 @@ namespace Game.Player
             inputActions.Player.Run.canceled += ctx => RunHeld = false;
 
             inputActions.Player.Interact.performed += ctx => InteractPressed = true;
+
+            inputActions.Player.ToggleInventory.performed += ctx => OnInventoryToggle?.Invoke();
         }
 
         void OnDisable()

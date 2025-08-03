@@ -16,11 +16,13 @@ namespace Game.UI
 
         private void OnEnable()
         {
+            InventoryUIManager.Instance.OnInventoryToggleChanged.AddListener(UpdateUI);
             inventory.OnInventoryChanged.AddListener(UpdateUI);
         }
 
         private void OnDisable()
         {
+            InventoryUIManager.Instance.OnInventoryToggleChanged.RemoveListener(UpdateUI);
             inventory.OnInventoryChanged.RemoveListener(UpdateUI);
         }
 

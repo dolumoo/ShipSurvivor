@@ -12,14 +12,13 @@ namespace Game.Core
         {
             get
             {
-                if(_instance == null)
+                if (_instance == null)
                 {
                     _instance = FindAnyObjectByType<T>();
 
-                    if(_instance != null)
+                    if (_instance == null)
                     {
-                        GameObject obj = new GameObject();
-                        obj.name = typeof(T).Name;
+                        GameObject obj = new GameObject(typeof(T).Name);
                         _instance = obj.AddComponent<T>();
                     }
                 }
