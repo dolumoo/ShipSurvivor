@@ -10,7 +10,8 @@ namespace Game.Player
         Walking,
         Running,
         Crouching,
-        Jumping
+        Jumping,
+        Frozen
     }
 
     public class PlayerState : MonoBehaviour

@@ -18,8 +18,7 @@ namespace Game.Core
 
                     if (_instance == null)
                     {
-                        GameObject obj = new GameObject(typeof(T).Name);
-                        _instance = obj.AddComponent<T>();
+                        Debug.Log("인스턴스 없음!");
                     }
                 }
 
@@ -36,6 +35,7 @@ namespace Game.Core
             }
             else
             {
+                Debug.Log("싱글톤 에러!");
                 Destroy(gameObject);
             }
         }

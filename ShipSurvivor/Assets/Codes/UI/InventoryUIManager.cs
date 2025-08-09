@@ -1,9 +1,9 @@
-using Game.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Events;
+using Game.Player;
 using Game.Core;
 
 namespace Game.UI
@@ -22,6 +22,11 @@ namespace Game.UI
         {
             base.Awake();
             inventoryUI = GetComponentInChildren<InventoryUI>();
+        }
+
+        private void Start()
+        {
+            inventoryUI.enabled = true;
         }
 
         private void OnEnable()
