@@ -10,9 +10,11 @@ namespace Game.UI
         [Header("References")]
         public Inventory inventory;
         public GameObject slotPrefab;
-        public Transform slotParent;
+        public Transform ItemSlotParent;
+        public Transform EquipSlotParent;
 
-        private List<InventorySlotUI> slotUIs = new();
+        private List<InventorySlotUI> ItemSlotUIs = new();
+        private List<InventorySlotUI> EquipSlotUIs = new();
 
         private void OnEnable()
         {
@@ -28,20 +30,33 @@ namespace Game.UI
 
         private void Start()
         {
-            for (int i = 0; i < inventory.slots.Count; i++)
+            for (int i = 0; i < inventory.ItemSlots.Count; i++)
             {
-                var obj = Instantiate(slotPrefab, slotParent);
+                var obj = Instantiate(slotPrefab, ItemSlotParent);
                 var ui = obj.GetComponent<InventorySlotUI>();
-                slotUIs.Add(ui);
+                ItemSlotUIs.Add(ui);
+            }
+
+            for (int i = 0; i < inventory.EquipSlots.Count; i++)
+            {
+                var obj = Instantiate(slotPrefab, EquipSlotParent);
+                Debug.Log("Instantiated!");
+                var ui = obj.GetComponent<InventorySlotUI>();
+                EquipSlotUIs.Add(ui);
             }
             UpdateUI();
         }
 
         public void UpdateUI()
         {
-            for (int i = 0; i < inventory.slots.Count; i++)
+            for (int i = 0; i < inventory.ItemSlots.Count; i++)
             {
-                slotUIs[i].Set(inventory.slots[i]);
+                ItemSlotUIs[i].Set(inventory.ItemSlots[i]);
+            }
+
+            for (int i = 0; i < inventory.EquipSlots.Count; i++)
+            {
+                EquipSlotUIs[i].Set(inventory.EquipSlots[i]);
             }
         }
     }

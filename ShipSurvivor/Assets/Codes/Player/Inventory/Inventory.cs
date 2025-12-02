@@ -8,26 +8,33 @@ namespace Game.Player
 {
     public class Inventory : MonoBehaviour
     {
-        public int slotCount = 6;
-        public List<InventorySlot> slots = new();
+        public int ItemSlotCount = 9;
+        public int EquipSlotCount = 3;
+        public List<InventorySlot> ItemSlots = new();
+        public List<InventorySlot> EquipSlots = new();
         public UnityEvent OnInventoryChanged;
 
         private void Awake()
         {
-            for (int i = 0; i < slotCount; i++)
+            for (int i = 0; i < ItemSlotCount; i++)
             {
-                slots.Add(new InventorySlot());
+                ItemSlots.Add(new InventorySlot());
+            }
+
+            for (int i = 0; i < EquipSlotCount; i++)
+            {
+                EquipSlots.Add(new InventorySlot());
             }
         }
 
         public bool AddItem(ItemData item)
         {
-            Debug.Log(slots.Count);
+            Debug.Log(ItemSlots.Count);
             // 스택을 쌓을 수 있는지 확인
             if (item.isStackable)
             {
                 Debug.Log("스택쌓기 가능");
-                foreach (var slot in slots)
+                foreach (var slot in ItemSlots)
                 {
                     if(slot.itemData == item && slot.quantity < item.maxStack)
                     {
@@ -40,7 +47,7 @@ namespace Game.Player
             }
 
             // 빈 슬롯 찾기
-            foreach (var slot in slots)
+            foreach (var slot in ItemSlots)
             {
                 if (slot.isEmpty)
                 {
